@@ -1,99 +1,108 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Formulario de Pago con HTML5</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="style.css" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Formulario de Pago</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
 </head>
 <body>
-    <div class="container mt-5">
-        <h2 class="mb-4">Formulario De Pago</h2>
-        <form id="payment-form">
-            <div class="row mb-3">
-                <div class="col-md-4">
-                    <label for="card-number" class="form-label">N.º de Tarjeta</label>
-                    <input type="text" id="card-number" class="form-control" maxlength="16" required>
-                </div>
-                <div class="col-md-2">
-                    <label for="cvc" class="form-label">CVC#</label>
-                    <input type="text" id="cvc" class="form-control" maxlength="3" required>
-                </div>
-                <div class="col-md-3">
-                    <label for="amount" class="form-label">Cantidad</label>
-                    <input type="text" id="amount" class="form-control" placeholder="€" required>
-                </div>
-            </div>
-
-            <div class="row mb-3">
-                <div class="col-md-6">
-                    <label for="first-name" class="form-label">Nombre</label>
-                    <input type="text" id="first-name" class="form-control" required>
-                </div>
-                <div class="col-md-6">
-                    <label for="last-name" class="form-label">Apellidos</label>
-                    <input type="text" id="last-name" class="form-control" required>
-                </div>
-            </div>
-
-            <div class="row mb-3">
-                <div class="col-md-4">
-                    <label for="city" class="form-label">Localidad</label>
-                    <input type="text" id="city" class="form-control" required>
-                </div>
-                <div class="col-md-4">
-                    <label for="state" class="form-label">Comunidad Autónoma</label>
-                    <select id="state" class="form-select" required>
-                        <option value="">Selecciona una comunidad</option>
-                        <option value="Andalucía">Andalucía</option>
-                        <option value="Aragón">Aragón</option>
-                        <option value="Asturias">Asturias</option>
-                        <option value="Baleares">Islas Baleares</option>
-                        <option value="Canarias">Canarias</option>
-                        <option value="Cantabria">Cantabria</option>
-                        <option value="Castilla-La Mancha">Castilla-La Mancha</option>
-                        <option value="Castilla y León">Castilla y León</option>
-                        <option value="Cataluña">Cataluña</option>
-                        <option value="Extremadura">Extremadura</option>
-                        <option value="Galicia">Galicia</option>
-                        <option value="Madrid">Madrid</option>
-                        <option value="Murcia">Murcia</option>
-                        <option value="Navarra">Navarra</option>
-                        <option value="La Rioja">La Rioja</option>
-                        <option value="País Vasco">País Vasco</option>
-                        <option value="Valencia">Comunidad Valenciana</option>
-                    </select>
-                </div>
-                <div class="col-md-4">
-                    <label for="postal-code" class="form-label">Código Postal</label>
-                    <input type="text" id="postal-code" class="form-control" required>
-                </div>
-            </div>
-
-            <div class="mb-3">
-                <label for="card-type" class="form-label">Tipo de Tarjeta</label>
-                <div class="d-flex align-items-center">
-                    <input type="radio" id="visa" name="card-type" value="Visa" class="me-2">
-                    <label for="visa" class="me-3">Visa</label>
-
-                    <input type="radio" id="mastercard" name="card-type" value="MasterCard" class="me-2">
-                    <label for="mastercard" class="me-3">MasterCard</label>
-
-                </div>
-            </div>
-
-            <div class="mb-3">
-                <label for="message" id="mensaje" class="form-label">Mensaje</label>
-                <textarea id="message" class="form-control" rows="3" placeholder="Añade notas aquí."></textarea>
-            </div>
-
-            <div class="d-flex justify-content-between">
-                <button type="button" class="btn btn-danger">Cancelar</button>
-                <button type="submit" class="btn btn-success">Enviar</button>
-            </div>
-        </form>
+  <div class="container mt-5">
+    <h3 class="mb-3">Ejemplo de formulario de pago</h3>
+    <div class="alert alert-danger d-none" id="error-message" role="alert">
+      Faltan algunos campos por completar.
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <form id="payment-form" novalidate>
+      <div class="row mb-3">
+        <div class="col-md-4">
+          <label for="card-number" class="form-label">Número de tarjeta</label>
+          <input type="text" class="form-control" id="card-number" placeholder="XXXXXXXXXXXXXXXX" required>
+        </div>
+        <div class="col-md-2">
+          <label for="cvc" class="form-label">CVC#</label>
+          <input type="text" class="form-control" id="cvc" placeholder="000" required>
+        </div>
+        <div class="col-md-2">
+          <label for="amount" class="form-label">Cantidad</label>
+          <div class="input-group">
+            <span class="input-group-text">€</span>
+            <input type="text" class="form-control" id="amount" placeholder="Monto" required>
+          </div>
+        </div>
+      </div>
+      <div class="row mb-3">
+        <div class="col-md-6">
+          <label for="first-name" class="form-label">Nombre</label>
+          <input type="text" class="form-control" id="first-name" placeholder="Tu nombre" required>
+        </div>
+        <div class="col-md-6">
+          <label for="last-name" class="form-label">Apellidos</label>
+          <input type="text" class="form-control" id="last-name" placeholder="Tus apellidos" required>
+        </div>
+      </div>
+      <div class="row mb-3">
+        <div class="col-md-4">
+          <label for="city" class="form-label">Ciudad</label>
+          <input type="text" class="form-control" id="city" placeholder="Tu ciudad" required>
+        </div>
+        <div class="col-md-4">
+          <label for="state" class="form-label">Comunidad Autónoma</label>
+          <select id="state" class="form-select" required>
+            <option value="" selected>Selecciona una comunidad</option>
+            <option>Andalucía</option>
+            <option>Aragón</option>
+            <option>Asturias</option>
+            <option>Baleares</option>
+            <option>Canarias</option>
+            <option>Cantabria</option>
+            <option>Castilla-La Mancha</option>
+            <option>Castilla y León</option>
+            <option>Cataluña</option>
+            <option>Extremadura</option>
+            <option>Galicia</option>
+            <option>Madrid</option>
+            <option>Murcia</option>
+            <option>Navarra</option>
+            <option>País Vasco</option>
+            <option>La Rioja</option>
+            <option>Ceuta</option>
+            <option>Melilla</option>
+          </select>
+        </div>
+        <div class="col-md-4">
+          <label for="postal-code" class="form-label">Código Postal</label>
+          <input type="text" class="form-control" id="postal-code" placeholder="00000" required>
+        </div>
+      </div>
+      <div class="row mb-3">
+        <div class="col-md-12">
+          <label class="form-label">Selecciona el tipo de pago:</label>
+          <div class="btn-group" role="group" aria-label="Tipo de tarjeta">
+            <input type="radio" class="btn-check" name="card-type" id="visa" autocomplete="off" required>
+            <label class="btn btn-outline-primary" for="visa"><i class="bi bi-credit-card"></i> Visa</label>
+
+            <input type="radio" class="btn-check" name="card-type" id="mastercard" autocomplete="off">
+            <label class="btn btn-outline-primary" for="mastercard"><i class="bi bi-credit-card-2-back"></i> MasterCard</label>
+
+            <input type="radio" class="btn-check" name="card-type" id="paypal" autocomplete="off">
+            <label class="btn btn-outline-primary" for="paypal"><i class="bi bi-paypal"></i> PayPal</label>
+          </div>
+        </div>
+      </div>
+      <div class="row mb-3">
+        <div class="col-md-12">
+          <label for="message" class="form-label">Mensaje</label>
+          <textarea class="form-control" id="message" rows="3" placeholder="Añade tus anotaciones aquí."></textarea>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12 text-end">
+          <button type="button" class="btn btn-secondary me-2" id="cancel-button">Cancelar</button>
+          <button type="submit" class="btn btn-primary" id="submit-button">Enviar</button>
+        </div>
+      </div>
+    </form>
+  </div>
 </body>
 </html>
